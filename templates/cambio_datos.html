@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>S. D. R. Panel</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+<link href="/css/style.css" rel="stylesheet" type="text/css" media="screen" />
+
+ <script type="text/javascript">
+
+
+</script>
+
+
+</head>
+<body>
+<div id="macro">
+<div id="header">
+	<div id="logo">
+		<h1><a href="/">S.D.R. Panel</a></h1>
+		<h2>Bienvenido/a {{ usuario.username }} | <a href="/cambio_datos/">Mis datos</a>  | <a href="/logout">Salir</a></h2>
+	</div>
+</div>
+<!-- end #header -->
+<div id="menu">
+	<ul>
+		<li><a href="/">Actuaciones</a></li>
+		<li><a href="/samberos/">Samberos</a></li>
+		<li><a href="/contactos/">Contactos</a></li>
+		<li><a href="/sms/">Sms</a></li>
+        {% if usuario.is_superuser %}
+        <li><a href="/admin/">Administración</a></li>
+        {% endif %}
+
+	</ul>
+</div>
+<!-- end #menu -->
+<div id="wrapper">
+<div id="page">
+	<div id="content">
+		<div class="post">
+			<h1 class="title"><a href="#">Mis Datos</a></h1>
+			<div class="entry">
+			{% if error %}<div id="error">Error: {{ error }}</div>{% endif %}
+
+			<form action="/cambio_datos/" method="POST"> 
+			<table class="listado">
+			<tbody>
+				<tr class="row1"><td align="right">Usuario:</td><td><input disabled type="text" name="username" value="{{ usuario.username }}" /></td></tr>
+				<tr class="row1"><td align="right">Nombre:</td><td><input type="text" name="first_name" value="{{ usuario.first_name }}" /></td></tr>
+				<tr class="row1"><td align="right">Apellidos:</td><td><input type="text" name="last_name" value="{{ usuario.last_name }}" /></td></tr>
+				<tr class="row1"><td align="right">DNI:</td><td><input type="text" name="dni" value="{{ usuario.dni }}" /></td></tr>
+				<tr class="row1"><td align="right">Teléfono:</td><td><input type="text" name="phone" value="{{ usuario.phone }}" /></td></tr>
+				<tr class="row1"><td align="right">Móvil:</td><td><input type="text" name="movil" value="{{ usuario.movil }}" /></td></tr>
+				<tr class="row1"><td align="right">Correo:</td><td><input type="text" name="email" value="{{ usuario.email }}" /></td></tr>
+				<tr class="row1"><td align="right">Instrumento:</td><td>
+                                 <select value="instrumento" name="instrumento">
+                                  {% for instrumento in lista_instrumentos %}
+                                        {% ifequal instrumento.id 9 %}
+                                    <option value="9" class="select_red">No puedo ir :(</option>
+                                        {% else %}
+                                        <option value="{{ instrumento.id }}"{% ifequal instrumento.id usuario.instrumento.id %} class="select_blue" selected{% endifequal %}>{{ instrumento.nombre }}</option>
+                                        {% endifequal %}
+                                  {% endfor %}
+                                 </select>
+				</td></tr>
+				<tr class="row1"><td align="center" colspan="2"><br /><h2>Cambio de contraseña</h2></td></tr>
+				<tr class="row1"><td align="center" colspan="2"><i>(no pongas nada si no quieres cambiarla)</i></td></tr>
+				<tr class="row1"><td align="right">Contraseña anterior:</td><td><input type="password" name="old_password" value="" /></td></tr>
+				<tr class="row1"><td align="right">Contraseña Nueva:</td><td><input type="password" name="new_password" value="" /></td></tr>
+				<tr class="row1"><td align="right">Repetir Contraseña Nueva:</td><td><input type="password" name="new_password2" value="" /></td></tr>
+			</table><br />
+			<center><INPUT TYPE="submit" name="cambio" value="¡¡ Actualiza mis datos !!" /></center>
+			</form>
+
+			</div>
+		</div>
+
+	</div>
+	<!-- end #content -->
+	<div style="clear: both;">&nbsp;</div>
+</div>
+</div>
+</div>
+<!-- end #page -->
+<div id="footer">
+<p><a href="http://www.sambadarua.org/">Samba Da Rua</a>: en tu cara.</p>
+</div>
+<!-- end #footer -->
+</body>
+</html>

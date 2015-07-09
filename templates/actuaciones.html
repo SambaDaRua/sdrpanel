@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>S. D. R. Panel</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+
+<link href="/css/style.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript">
+    var GB_ROOT_DIR = "/greybox/";
+</script>
+<script type="text/javascript" src="greybox/AJS.js"></script>
+<script type="text/javascript" src="greybox/AJS_fx.js"></script>
+<script type="text/javascript" src="greybox/gb_scripts.js"></script>
+<link href="greybox/gb_styles.css" rel="stylesheet" type="text/css" />
+
+{% if usuario.is_staff %}
+<script>
+  function changeUser(user_id) {
+  if (document.getElementsByTagName) {
+    var forms = document.getElementsByTagName('form');
+    /* Loop through all the FORMs */
+    for (var i=0, end = forms.length; i < end; i++) {
+	document.forms[i].elements["user"].value = user_id;
+    }
+  }
+  }
+</script>
+{% endif %}
+<script type="text/javascript" src="js/mootools.js"></script>
+<script type="text/javascript" src="js/side-bar.js"></script>
+
+</head>
+<body>
+<div id="macro">
+<div id="header">
+	<div id="logo">
+		<h2>Bienvenido/a  
+		{% if usuario.is_staff %}
+				 <select value="user" name="user" onchange="changeUser(this.value)">
+				  {% for sambero in lista_samberos %}
+				  	<option value="{{ sambero.id }}"{% ifequal sambero.id usuario.id %} class="select_blue" selected{% endifequal %}>{{ sambero.username }}</option>
+				  {% endfor %}
+				 </select>
+		{% else %}
+		{{ usuario.username }}
+		{% endif %}
+		| <a href="/cambio_datos/">Mis datos</a> | <a href="/logout">Salir</a>&nbsp;</h2>
+		<h1><a href="/">S.D.R. Panel</a></h1>
+
+
+	</div>
+</div>
+<!-- end #header -->
+<div id="menu">
+	<ul>
+		<li class="current_page_item"><a href="/">Actuaciones</a></li>
+		<li><a href="/samberos/">Samberos</a></li>
+		<li><a href="/contactos/">Contactos</a></li>
+		<li><a href="/sms/">Sms</a></li>
+		 {% if usuario.is_superuser %}
+		<li><a href="/admin/">Administración</a></li>
+		{% endif %}
+	</ul>
+</div>
+<!-- end #menu -->
+<div id="wrapper">
+<div id="page">
+	<div id="content">
+		<div class="post">
+			<h1 class="title"><a href="#">Bienvenido al Panel de Actuaciones </a></h1>
+			<div class="entry">
+				<p>La función del <strong>Panel </strong> es organizar las actuaciones, así como tener una lista de los samberos (ya era hora!) :)</p>
+				<p>Si tienes alguna sugerencia o duda sobre el funcionamiento, visualización o "lo que se te ocurra" no dudes en dar un toque a Pablo Catalina: 690107647 o xkill@ciberhell.ath.cx
+			</div>
+		</div>
+{% if lista_proximas_actuaciones %}
+  {% for actuacion in lista_proximas_actuaciones %}
+		<div class="post">
+			{% if actuacion.confirmada %}
+			<h2 class="titleconfirmada"><a name="id{{ actuacion.id }}" href="#id{{ actuacion.id }}">{{ actuacion.titulo }}</a></h2>
+			{% else %}
+			<h2 class="titlenoconfirmada"><a name="id{{ actuacion.id }}" href="#id{{ actuacion.id }}">{{ actuacion.titulo }}</a></h2>
+			{% endif %}	
+			<div class="entry">
+				{{ actuacion.descripcion|urlize|linebreaks }}
+			</div>
+			<div class="metos">
+			<div class="datos">
+				<p class="meta">Datos: </p>
+				<ul>
+				{% if actuacion.confirmada %}
+					<p>CONFIRMADA</p>
+				{% else %}
+					<p>NO CONFIRMADA</p>
+				{% endif %}	
+					<li>Lugar: {{ actuacion.lugar }} <a target="_blank" href="http://maps.google.es/maps?f=q&hl=es&q={{ actuacion.lugar }}&ie=UTF8&z=16">(Mapa)</a></li>
+					<li>Fecha: {{ actuacion.fecha|date:"l, d/m/y" }}</li>
+					<li>Hora: {{ actuacion.fecha|date:"H:i" }}</li>
+					<li>Contacto{{ actuacion.contacto.all|pluralize }}: {% for contacto in actuacion.contacto.all%}{{ contacto.url|safe }}, {% endfor %}</li>
+					<li>Organizador{{ actuacion.organizador.all|pluralize:"es" }}: {% for organizador in actuacion.organizador.all %}{{organizador.url|safe}}, {% endfor %}</li>
+					<li>Coche{{ actuacion.coches.all|pluralize }}: {% for coche in actuacion.coches.all %}{{coche.url|safe}}, {% endfor %}</li>
+				</ul>
+				<hr />
+				<div class="meapunto">
+				<form action="/#id{{ actuacion.id }}" method="POST">
+					<INPUT TYPE="hidden" name="id_actuacion" value="{{ actuacion.id }}" />
+					<INPUT TYPE="submit" name="coche" value="¡¡ Llevo Coche !!" />
+				{% if usuario.is_staff %}
+					<INPUT TYPE="hidden" name="user" value=" {{ usuario.id }}" />
+				{% endif %}
+				</form>
+				</div><!--meapunto-->
+			</div><!--datos-->
+			<div class="formacion">
+				<p class="meta">Formación: </p>
+				{% if lista_instrumentos %}
+				<ul>
+					{% for instrumento in lista_instrumentos %}
+					<li>{{ instrumento.nombre }}: 
+						{% for sambero in actuacion.samberos.all %}
+						{% ifequal sambero.sambero.username usuario.username %}<b>{% endifequal %}
+						{% ifequal sambero.instrumento.nombre instrumento.nombre %}{{ sambero.sambero.url|safe }}, {% endifequal %}
+						{% ifequal sambero.sambero.username usuario.username %}</b>{% endifequal %}
+						{% endfor %}</li>
+					{% endfor %}
+				</ul>
+				{% endif %}
+				<hr />
+				<div class="meapunto">
+				<form action="/#id{{ actuacion.id }}" method="POST">
+				 <select value="instrumento" name="instrumento">
+				  {% for instrumento in lista_instrumentos %}
+					{% ifequal instrumento.id 9 %}
+				    <option value="9" class="select_red">No puedo ir :(</option>
+					{% else %}
+				  	<option value="{{ instrumento.id }}"{% ifequal instrumento.id usuario.instrumento.id %} class="select_blue" selected{% endifequal %}>{{ instrumento.nombre }}</option>
+					{% endifequal %}
+				  {% endfor %}
+				 </select>
+					<INPUT TYPE="hidden" name="id_actuacion" value="{{ actuacion.id }}" />
+					<INPUT TYPE="submit" name="actualizar_instrumento" value="Me apunto!!" />
+				{% if usuario.is_staff %}
+					<INPUT TYPE="hidden" name="user" value=" {{ usuario.id }}" />
+				{% endif %}
+				</form>
+				</div><!--meapunto-->
+			</div><!--formacion-->
+			</div><!--metos-->
+		</div>
+  {% endfor %}
+{% else %}
+		<div class="post">
+			<h2 class="title"><a href="#">No hay actuaciones</a></h2>
+			<div class="entry">
+				<p>No hay actuaciones propuestas para un futuro.</p>
+			</div>
+		</div>
+{% endif %}
+
+	</div>
+	<!-- end #content -->
+	<div style="clear: both;">&nbsp;</div>
+</div>
+</div>
+</div>
+<!-- end #page -->
+<div id="footer">
+	<p><a href="http://www.sambadarua.org/">Samba Da Rua</a>: en tu cara.</p>
+</div>
+<!-- end #footer -->
+
+{% if lista_proximas_actuaciones %}
+<!-- slidebar -->
+<div id="sideBar">
+	<a href="#" id="sideBarTab"><img src="images/slide-button.png" alt="Actuaciones" title="Actuaciones" /></a>
+	<div id="sideBarContents" style="width:0px;">
+		<div id="sideBarContentsInner">
+			<ul>
+{% for actuacion in lista_proximas_actuaciones %}
+				<li><a href="#id{{ actuacion.id }}" title="{{ actuacion.fecha|date:"l, d/M/y" }}">{{ actuacion.titulo }}</a></li>
+{% endfor %}
+
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- end slidebar -->
+{% endif %}
+
+</body>
+</html>

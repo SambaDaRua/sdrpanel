@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>S. D. R. Panel</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+<link href="/css/style-box.css" rel="stylesheet" type="text/css" media="screen" />
+</head>
+<body>
+<table>
+<tr><th>Nombre:</th><td>{{ sambero.first_name }} {{ sambero.last_name }}</td></tr>
+<tr><th>DNI:</th><td>{{ sambero.dni }}</td></tr>
+<tr><th>Teléfono:</th><td>{{ sambero.phone }}</td></tr>
+<tr><th>Móvil:</th><td>{{ sambero.movil }}</td></tr>
+<tr><th>Correo:</th><td>{{ sambero.email }}</td></tr>
+<tr><th>Instrumento:</th><td>{{ sambero.instrumento.nombre }}</td></tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% if lista_samberos %}
+"Samberos Activos"
+"Nombre","Apellidos","DNI","Teléfono","Móvil","Correo"
+{% for samb in lista_samberos %}"{{ samb.first_name|addslashes }}","{{ samb.last_name|addslashes }}","{{ samb.dni|addslashes }}","{{ samb.phone|addslashes }}","{{ samb.movil|addslashes }}","{{ samb.email|addslashes }}"
+{% endfor %}
+{% endif %}
+{% if lista_samberos_backstage %}
+"Samberos Backstage"
+"Nombre","Apellidos","DNI","Teléfono","Móvil","Correo"
+{% for samb in lista_samberos_backstage %}"{{ samb.first_name|addslashes }}","{{ samb.last_name|addslashes }}","{{ samb.dni|addslashes }}","{{ samb.phone|addslashes }}","{{ samb.movil|addslashes }}","{{ samb.email|addslashes }}"
+{% endfor %}
+{% endif %}
+{% if lista_samberos_antiguos %}
+"Antiguos Samberos"
+"Nombre","Apellidos","DNI","Teléfono","Móvil","Correo"
+{% for samb in lista_samberos_antiguos %}"{{ samb.first_name|addslashes }}","{{ samb.last_name|addslashes }}","{{ samb.dni|addslashes }}","{{ samb.phone|addslashes }}","{{ samb.movil|addslashes }}","{{ samb.email|addslashes }}"
+{% endfor %}
+{% endif %}

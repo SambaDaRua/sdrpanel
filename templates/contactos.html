@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>S. D. R. Panel</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+
+<link href="/css/style.css" rel="stylesheet" type="text/css" media="screen" />
+
+ <script type="text/javascript">
+
+
+</script>
+
+
+</head>
+<body>
+<div id="macro">
+<div id="header">
+	<div id="logo">
+		<h1><a href="/">S.D.R. Panel</a></h1>
+		<h2>Bienvenido/a {{ usuario.username }} | <a href="/cambio_datos/">Mis datos</a> | <a href="/logout">Salir</a></h2>
+	</div>
+</div>
+<!-- end #header -->
+<div id="menu">
+	<ul>
+		<li><a href="/">Actuaciones</a></li>
+		<li><a href="/samberos/">Samberos</a></li>
+		<li class="current_page_item"><a href="/contactos/">Contactos</a></li>
+		<li><a href="/sms/">Sms</a></li>
+        {% if usuario.is_superuser %}
+        <li><a href="/admin/">Administración</a></li>
+        {% endif %}
+
+	</ul>
+</div>
+<!-- end #menu -->
+<div id="wrapper">
+<div id="page">
+	<div id="content">
+		<div class="post">
+			<h1 class="title"><a href="#">Lista de Contactos</a></h1>
+			<div class="entry">
+
+			{% if lista_contactos %}
+			<table class="listado">
+			<thead id="macro">
+			<tr><td>Nombre</td><td>Teléfono</td><td>Móvil</td><td>Correo</td></tr>
+			</thead>
+			<tbody>
+				{% for contacto in lista_contactos %}
+				<tr class="{% cycle 'row1' 'row2' %}"><td >{{ contacto.name }}</td><td>{{ contacto.phone }}</td><td>{{ contacto.movil }}</td><td>{{ contacto.mail }}</td></tr>
+				{% endfor %}
+			</tbody>
+			</table>
+			{% endif %}
+
+			</div>
+		</div>
+
+	</div>
+	<!-- end #content -->
+	<div style="clear: both;">&nbsp;</div>
+</div>
+</div>
+</div>
+<!-- end #page -->
+<div id="footer">
+<p><a href="http://www.sambadarua.org/">Samba Da Rua</a>: en tu cara.</p>
+</div>
+<!-- end #footer -->
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>S. D. R. Panel</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+<link href="/css/style.css" rel="stylesheet" type="text/css" media="screen" />
+
+<script language="Javascript">
+function counterUpdate(opt_countedTextBox, opt_countBody, opt_maxSize) {
+        var countedTextBox = opt_countedTextBox ? opt_countedTextBox : "counttxt";
+        var countBody = opt_countBody ? opt_countBody : "countBody";
+        var maxSize = opt_maxSize ? opt_maxSize : 1024;
+
+        var field = document.getElementById(countedTextBox);
+
+        if (field && field.value.length >= maxSize) {
+                field.value = field.value.substring(0, maxSize);
+        }
+        var txtField = document.getElementById(countBody);
+                if (txtField) { 
+                txtField.innerHTML = maxSize - field.value.length;
+        }
+}
+</script>
+
+
+</head>
+<body>
+<div id="macro">
+<div id="header">
+    <div id="logo">
+        <h1><a href="/">S.D.R. Panel</a></h1>
+        <h2>Bienvenido/a {{ usuario.username }} | <a href="/cambio_datos/">Mis datos</a>  | <a href="/logout">Salir</a></h2>
+    </div>
+</div>
+<!-- end #header -->
+<div id="menu">
+    <ul>
+        <li><a href="/">Actuaciones</a></li>
+        <li><a href="/samberos/">Samberos</a></li>
+        <li><a href="/contactos/">Contactos</a></li>
+		<li class="current_page_item"><a href="/sms/">Sms</a></li>
+        {% if usuario.is_superuser %}
+        <li><a href="/admin/">Administración</a></li>
+        {% endif %}
+
+    </ul>
+</div>
+<!-- end #menu -->
+<div id="wrapper">
+<div id="page">
+    <div id="content">
+		<div class="post">
+			<h1 class="title"><a href="#">&Uacute;ltimos 10 SMS enviados</a></h1>
+			<div class="entry">
+
+			{% if lista_sms %}
+			<table class="listado">
+			<thead id="macro">
+			<tr><td>Fecha</td><td>SMS</td></tr>
+			</thead>
+			<tbody>
+				{% for sms in lista_sms %}
+				<tr class="{% cycle 'row1' 'row2' %}"><td>{{ sms.fecha|date:"d/m/y" }}</td><td>{{ sms.texto }}</td></tr>
+				{% endfor %}
+			</tbody>
+			</table>
+			{% endif %}
+
+			</div>
+		</div>
+		<div class="post">
+			<h1 class="title"><a href="#">Env&iacute;o</a></h1>
+			<div class="entry">
+				<center><p>El mensaje se enviará a todos los samberos que aparecen en la lista :)</p>
+				<form name="sms" action="/sms/" method="POST">
+					<p><textarea cols="50" rows="4" id="texto" name="texto" onkeyup="counterUpdate('texto','contador','155')"></textarea>
+					<br /> Quedan <span id="contador">155</span> caracteres.</p>
+					<p><INPUT TYPE="submit" name="envia" value="¡¡ Env&iacute;ar a todos !!" /></p>
+				</form>
+				</center>
+			</div>
+		</div>
+    </div>
+    <!-- end #content -->
+    <div style="clear: both;">&nbsp;</div>
+</div>
+</div>
+</div>
+<!-- end #page -->
+<div id="footer">
+<p><a href="http://www.sambadarua.org/">Samba Da Rua</a>: en tu cara.</p>
+</div>
+<!-- end #footer -->
+</body>
+</html>
+
