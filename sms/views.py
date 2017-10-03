@@ -3,8 +3,8 @@
 from django.template import Context, loader
 from django.http import HttpResponse
 from datetime import datetime
-from sdrpanel.actuaciones.models import actuaciones, samberos
-from sdrpanel.sms.models import sms,log
+from actuaciones.models import actuaciones, samberos
+from sms.models import sms,log
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponse

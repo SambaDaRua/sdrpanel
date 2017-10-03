@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User, UserManager
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.contrib import admin
 
 
@@ -13,13 +13,13 @@ class instrumentos(models.Model):
 		verbose_name_plural = "instrumento"
 		verbose_name = "instrumentos"
 
-class samberos(User):
+class samberos(AbstractUser):
 	objects = UserManager()
 	backstage = models.BooleanField(default=False, help_text="Si el sambero esta activo, pero no tocando instrumentos ... ")
 	dni = models.CharField(max_length=10, blank=True, null=True)
 	phone = models.CharField(max_length=9, blank=True, null=True)
 	movil = models.CharField(max_length=9, blank=True, null=True, help_text="Este es el numero para los SMS")
-	instrumento = models.ForeignKey(instrumentos)
+	instrumento = models.ForeignKey(instrumentos, null=True)
 	def url(self):
 		return u'<a href="/samberos/' + self.username + u'/" title="' + self.username + u'" rel="gb_page_center[400, 210]">' + self.username + u'</a>'
 	class Meta:
@@ -55,8 +55,8 @@ class actuaciones(models.Model):
 	descripcion = models.TextField()
 	lugar = models.CharField(max_length=200)
 	organizador = models.ManyToManyField(samberos)
-	coches = models.ManyToManyField(samberos, blank=True, null=True, related_name='actuaciones_coches')
-	samberos = models.ManyToManyField(relaciones, blank=True, null=True)
+	coches = models.ManyToManyField(samberos, blank=True, related_name='actuaciones_coches')
+	samberos = models.ManyToManyField(relaciones, blank=True,)
 	confirmada = models.BooleanField(default=False)
 	contacto = models.ManyToManyField(contactos)
 	def __unicode__(self):

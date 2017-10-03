@@ -1,4 +1,4 @@
-from sdrpanel.sms.models import log, sms
+from sms.models import log, sms
 from django.contrib import admin
 
 class smssms(admin.ModelAdmin):

@@ -26,7 +26,8 @@
 <p class='error' align='center'>El nombre de usuario y/o la contraseña son incorrectos.</p>
 {% endif %}
 
-<form method="post" action="{% url django.contrib.auth.views.login %}">
+<form method="post" action="{% url 'sdrlogin' %}">
+    {% csrf_token %}
 <p align="center">{{ form.username.label_tag }}<br />{{ form.username }}</p>
 <p align="center">{{ form.password.label_tag }}<br />{{ form.password }}</p>
 <p align="center"><input type="submit" value="Entrar" />

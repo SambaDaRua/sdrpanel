@@ -1,6 +1,6 @@
 from django.db import models
-from sdrpanel.actuaciones.models import samberos
-from sdrpanel.sms.voipbuster import send_sms
+from actuaciones.models import samberos
+from sms.voipbuster import send_sms
 from xml.dom import minidom
 import re
 import threading

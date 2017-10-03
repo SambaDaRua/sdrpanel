@@ -1,4 +1,4 @@
-from sdrpanel.actuaciones.models import samberos, contactos, instrumentos, actuaciones
+from actuaciones.models import samberos, contactos, instrumentos, actuaciones
 from django.contrib import admin
 
 class actuacionesAdmin(admin.ModelAdmin):
