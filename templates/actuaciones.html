@@ -74,7 +74,6 @@
 			<h1 class="title"><a href="#">Bienvenido al Panel de Actuaciones </a></h1>
 			<div class="entry">
 				<p>La función del <strong>Panel </strong> es organizar las actuaciones, así como tener una lista de los samberos (ya era hora!) :)</p>
-				<p>Si tienes alguna sugerencia o duda sobre el funcionamiento, visualización o "lo que se te ocurra" no dudes en dar un toque a Pablo Catalina: 690107647 o xkill@ciberhell.ath.cx
 			</div>
 		</div>
 {% if lista_proximas_actuaciones %}
@@ -107,6 +106,7 @@
 				<hr />
 				<div class="meapunto">
 				<form action="/#id{{ actuacion.id }}" method="POST">
+{% csrf_token %}
 					<INPUT TYPE="hidden" name="id_actuacion" value="{{ actuacion.id }}" />
 					<INPUT TYPE="submit" name="coche" value="¡¡ Llevo Coche !!" />
 				{% if usuario.is_staff %}
@@ -132,6 +132,7 @@
 				<hr />
 				<div class="meapunto">
 				<form action="/#id{{ actuacion.id }}" method="POST">
+{% csrf_token %}
 				 <select value="instrumento" name="instrumento">
 				  {% for instrumento in lista_instrumentos %}
 					{% ifequal instrumento.id 9 %}
