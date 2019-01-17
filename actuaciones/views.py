@@ -1,6 +1,6 @@
 # coding=utf8
 # Create your views here.
-from django.template import loader
+from django.template import Context, loader
 from django.http import HttpResponse
 from datetime import datetime
 from actuaciones.models import actuaciones, samberos, contactos, instrumentos, relaciones
@@ -23,22 +23,22 @@ def index(request):
 	lista_instrumentos = instrumentos.objects.all().order_by('id')
 	lista_samberos = samberos.objects.filter(is_active=True).order_by('username')
 	t = loader.get_template('actuaciones.html')
-	c = {
+	c = Context({
 		'lista_proximas_actuaciones': lista_proximas_actuaciones,
 		'lista_instrumentos': lista_instrumentos,
 		'lista_samberos': lista_samberos,
 		'usuario': samberos.objects.get(id = request.user.id),
-	}
+	})
 	return HttpResponse(t.render(c))
 
 @login_required
 def listado_contactos(request):
 	lista_contactos = contactos.objects.all()
 	t = loader.get_template('contactos.html')
-	c = {
+	c = Context({
 		'lista_contactos': lista_contactos,
 		'usuario': samberos.objects.get(id = request.user.id),
-	}
+	})
 	return HttpResponse(t.render(c))
 
 @login_required
@@ -47,30 +47,30 @@ def listado_samberos(request):
 	lista_samberos_backstage = samberos.objects.filter(is_active=True,backstage=True)
 	lista_samberos_antiguos = samberos.objects.filter(is_active=False)
 	t = loader.get_template('samberos.html')
-	c = {
+	c = Context({
 		'lista_samberos': lista_samberos,
 		'lista_samberos_backstage': lista_samberos_backstage,
 		'lista_samberos_antiguos': lista_samberos_antiguos,
 		'usuario': samberos.objects.get(id = request.user.id),
-	}
+	})
 	return HttpResponse(t.render(c))
 
 @login_required
 def datos_sambero(request, username):
 	sambero = samberos.objects.get(username = username)
 	t = loader.get_template('datos_sambero.html')
-	c = {
+	c = Context({
 		'sambero': sambero,
-	}
+	})
 	return HttpResponse(t.render(c))
 
 @login_required
 def datos_contacto(request, id):
 	contacto = contactos.objects.get(id = id)
 	t = loader.get_template('datos_contacto.html')
-	c = {
+	c = Context({
 		'contacto': contacto,
-	}
+	})
 	return HttpResponse(t.render(c))
 
 def actualiza_instrumento_actuacion(id_actuacion, id_sambero, id_instrumento):
@@ -108,12 +108,12 @@ def samberos_csv(request):
 	lista_samberos_backstage = samberos.objects.filter(is_active=True,backstage=True)
 	lista_samberos_antiguos = samberos.objects.filter(is_active=False)
 	t = loader.get_template('samberos-csv.html')
-	c = {
+	c = Context({
 		'lista_samberos': lista_samberos,
 		'lista_samberos_backstage': lista_samberos_backstage,
 		'lista_samberos_antiguos': lista_samberos_antiguos,
 		'usuario': samberos.objects.get(id = request.user.id),
-	}
+	})
 	response.write(t.render(c))
 	return response
 
@@ -165,10 +165,10 @@ def cambio_datos(request):
 				error = u'La contraseña es incorrenta'
 	lista_instrumentos = instrumentos.objects.all().order_by('id')
 	t = loader.get_template('cambio_datos.html')
-	c = {
+	c = Context({
 		'usuario': samberos.objects.get(id = request.user.id),
 		'lista_instrumentos': lista_instrumentos,
 		'error': error,
-	}
+	})
 	return HttpResponse(t.render(c))
 
