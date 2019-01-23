@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'actuaciones',
     'sms',
+    'rangefilter',
 )
 
 MIDDLEWARE_CLASSES = (
