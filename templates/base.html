@@ -16,7 +16,7 @@
     <!-- Header -->
     <div id="header">
         <div id="branding">
-        {% block branding %}<h1 id="site-name">S</h1>
+        {% block branding %}<h1 id="site-name">SDRPanel</h1>
 {% endblock %}
         </div>
         {% if not user.is_anonymous %}
@@ -24,7 +24,6 @@
         {% endif %}
         {% block nav-global %}{% endblock %}
     </div>
-    {% block breadcrumbs %}<div class="breadcrumbs"><a href="/">INICIO</a> - <a href="/gestion/proyecto/">GESTIÓN</a> - <a href="/vuln/index/">VULNERABILIDADES</a>  - <a href="/ocurrencia/informes/">INFORMES</a>{% if user.is_staff %} - <a href="/ocurrencia/index/">OCURRENCIAS</a> - <a href="/proyecto/index/">PROYECTOS UMSS</a> - <a href="/eventos/index/">EVENTOS</a>{% endif %} -  <a href="/ocurrencia/ayuda/?full">AYUDA</a> - <a href="/trac"> TODO (BUGS/MEJORAS)</a></div> {% endblock %}    <!-- END Header -->
     {% endif %}
 
     <!-- Content -->
