@@ -12,7 +12,7 @@ from django.http import HttpResponse
 
 @login_required
 def index(request):
-	if (request.POST.has_key('texto') and request.POST.get('texto')) :
+	if ('texto' in request.POST and request.POST.get('texto')) :
 		mensaje = sms(texto=request.POST.get('texto'))
 		mensaje.save()
 		for sambero in samberos.objects.filter(is_active=True):

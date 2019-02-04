@@ -105,7 +105,7 @@
 				</ul>
 				<hr />
 				<div class="meapunto">
-				<form action="/#id{{ actuacion.id }}" method="POST">
+				<form action="/#id{{ actuacion.id }}" method="POST">{% csrf_token %}
 {% csrf_token %}
 					<INPUT TYPE="hidden" name="id_actuacion" value="{{ actuacion.id }}" />
 					<INPUT TYPE="submit" name="coche" value="¡¡ Llevo Coche !!" />
@@ -131,7 +131,7 @@
 				{% endif %}
 				<hr />
 				<div class="meapunto">
-				<form action="/#id{{ actuacion.id }}" method="POST">
+				<form action="/#id{{ actuacion.id }}" method="POST">{% csrf_token %}
 {% csrf_token %}
 				 <select value="instrumento" name="instrumento">
 				  {% for instrumento in lista_instrumentos %}

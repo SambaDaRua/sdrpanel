@@ -1,48 +1,38 @@
-#from django.conf.urls.defaults import *
-
-from django.conf.urls import include, url
-from django.contrib import admin
-from django.conf import settings
-from django.contrib.staticfiles import views
-
-from django.contrib.auth.views import login, logout, password_reset, password_reset_done, password_reset_confirm, password_reset_complete
-
-from actuaciones import views as actuaciones_views
-from sms import views as sms_views
 import os
 
+from django.urls import re_path, path, include
+from django.contrib import admin
+from django.conf import settings
+from django.contrib.staticfiles import views as static_views
+from django.contrib.auth import views as auth_views
+from actuaciones import views as actuaciones_views
 from django.views.static import serve
 
 
-
-#from django.contrib import admin
-#import django.contrib.auth.views
-#admin.autodiscover()
-
 urlpatterns = [
-        url(r'^$', actuaciones_views.index),
-        url(r'^actuaciones/$', actuaciones_views.index),
-        url(r'^samberos/$', actuaciones_views.listado_samberos),
-        url(r'^samberos/csv/$', actuaciones_views.samberos_csv),
-        url(r'^samberos/(?P<username>\w+)/$', actuaciones_views.datos_sambero),
-        url(r'^contactos/$', actuaciones_views.listado_contactos),
-        url(r'^contactos/(?P<id>\d+)/$', actuaciones_views.datos_contacto),
-        url(r'^cambio_datos/$', actuaciones_views.cambio_datos),
-        url(r'^login/$', login, name='sdrlogin'),
-        url(r'^logout/$', logout, name='sdrlogout'),
-        url(r'^sms/$', sms_views.index),
-        url('^admin/', include(admin.site.urls)),
-        url(r'^password_reset/$', password_reset, name='password_reset'),
-        url(r'^password_reset/done/$', password_reset_done, name='password_reset_done'),
-        url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', password_reset_confirm, name='password_reset_confirm'),
-        url(r'^reset/done/$', password_reset_complete, name='password_reset_complete'),
+        re_path(r'^admin/', admin.site.urls),
+        path('', include('django.contrib.auth.urls')),
+        re_path(r'^$', actuaciones_views.index),
+        re_path(r'^actuaciones/$', actuaciones_views.index),
+        re_path(r'^samberos/$', actuaciones_views.listado_samberos),
+        re_path(r'^samberos/csv/$', actuaciones_views.samberos_csv),
+        re_path(r'^samberos/(?P<username>\w+)/$', actuaciones_views.datos_sambero),
+        re_path(r'^contactos/$', actuaciones_views.listado_contactos),
+        re_path(r'^contactos/(?P<id>\d+)/$', actuaciones_views.datos_contacto),
+        re_path(r'^cambio_datos/$', actuaciones_views.cambio_datos),
+#        re_path(r'^login/$', auth_views.LoginView.as_view(), name='sdrlogin'),
+#        re_path(r'^logout/$', auth_views.LogoutView(), name='sdrlogout'),
+#        re_path(r'^password_reset/$', auth_views.PasswordResetView(), name='password_reset'),
+#        re_path(r'^password_reset/done/$', auth_views.PasswordResetDoneView(), name='password_reset_done'),
+#        re_path(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', auth_views.PasswordResetConfirmView(), name='password_reset_confirm'),
+#        re_path(r'^reset/done/$', auth_views.PasswordResetCompleteView(), name='password_reset_complete'),
 ]
 
 if settings.DEBUG:
     urlpatterns += [
-        url(r'^css/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.BASE_DIR,'css')}),
-        url(r'^js/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.BASE_DIR,'js')}),
-        url(r'^images/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.BASE_DIR,'images')}),
-        url(r'^greybox/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.BASE_DIR,'greybox')}),
-        url(r'^static/(?P<path>.*)$', views.serve),
-   ]
+        re_path(r'^css/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.BASE_DIR, 'css')}),
+        re_path(r'^js/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.BASE_DIR, 'js')}),
+        re_path(r'^images/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.BASE_DIR, 'images')}),
+        re_path(r'^greybox/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.BASE_DIR, 'greybox')}),
+        re_path(r'^static/(?P<path>.*)$', static_views.serve)
+    ]

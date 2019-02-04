@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
-import urllib
-import urllib2
+import urllib.request, urllib.parse, urllib.error
+import urllib.request, urllib.error, urllib.parse
 
 def send_sms(numero, texto, smsuser = settings.SMSUSER , smspwd = settings.SMSPWD):
 	url = 'https://www.voipbusterpro.com/myaccount/sendsms.php'
@@ -10,5 +10,5 @@ def send_sms(numero, texto, smsuser = settings.SMSUSER , smspwd = settings.SMSPW
 		'to': numero,
 		'text': texto.encode('utf-8')
  }
-	uri = urllib.urlencode(values)
-	return urllib2.urlopen(url, uri).read().replace("\t","").replace("\r","").replace("\n","").strip()
+	uri = urllib.parse.urlencode(values)
+	return urllib.request.urlopen(url, uri).read().replace("\t","").replace("\r","").replace("\n","").strip()

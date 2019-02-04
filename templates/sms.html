@@ -77,8 +77,7 @@ function counterUpdate(opt_countedTextBox, opt_countBody, opt_maxSize) {
 			<h1 class="title"><a href="#">Env&iacute;o</a></h1>
 			<div class="entry">
 				<center><p>El mensaje se enviará a todos los samberos que aparecen en la lista :)</p>
-				<form name="sms" action="/sms/" method="POST">
-{% csrf_token %}
+				<form name="sms" action="/sms/" method="POST">{% csrf_token %}
 					<p><textarea cols="50" rows="4" id="texto" name="texto" onkeyup="counterUpdate('texto','contador','155')"></textarea>
 					<br /> Quedan <span id="contador">155</span> caracteres.</p>
 					<p><INPUT TYPE="submit" name="envia" value="¡¡ Env&iacute;ar a todos !!" /></p>

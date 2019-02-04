@@ -46,8 +46,7 @@
 			<div class="entry">
 			{% if error %}<div id="error">Error: {{ error }}</div>{% endif %}
 
-			<form action="/cambio_datos/" method="POST"> 
-{% csrf_token %}
+			<form action="/cambio_datos/" method="POST">{% csrf_token %}
 			<table class="listado">
 			<tbody>
 				<tr class="row1"><td align="right">Usuario:</td><td><input disabled type="text" name="username" value="{{ usuario.username }}" /></td></tr>

@@ -29,7 +29,7 @@ class log(models.Model):
 	respuesta = models.TextField()
 	fecha = models.DateTimeField(auto_now_add=True)
 	def __unicode__(self):
-		return u'%s\t%s\t%s\t%s' % (self.fecha, self.numero, self.texto, self.enviado)
+		return '%s\t%s\t%s\t%s' % (self.fecha, self.numero, self.texto, self.enviado)
 
 class sms_multi(threading.Thread):
 	texto = None
@@ -44,11 +44,11 @@ class sms_multi(threading.Thread):
 	def run(self):
 		sem.acquire()
 		if re.match("^6\d{8}", self.numero):
-			print u'Enviando a ' '+34' + self.numero
+			print('Enviando a ' '+34' + self.numero)
 			resultado = send_sms ('+34' + self.numero, self.texto)
 			self.newlog.respuesta = resultado
 			dom = minidom.parseString(resultado)
-			if dom.getElementsByTagName('result')[0].firstChild.data == u'1':
+			if dom.getElementsByTagName('result')[0].firstChild.data == '1':
 				self.newlog.enviado = True
 #			if dom.getElementsByTagName('description')[0].firstChild.data == u'Sorry, you do not have enough credit to send this sms. Go to your accountpage to buy credit!':
 #				self.newlog.enviado = False

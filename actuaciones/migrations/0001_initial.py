@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+
 
 from django.db import models, migrations
 import django.contrib.auth.models
@@ -93,8 +93,8 @@ class Migration(migrations.Migration):
             name='relaciones',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('instrumento', models.ForeignKey(to='actuaciones.instrumentos')),
-                ('sambero', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('instrumento', models.ForeignKey(to='actuaciones.instrumentos', on_delete=models.CASCADE)),
+                ('sambero', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
         ),
         migrations.AddField(
@@ -115,7 +115,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='samberos',
             name='instrumento',
-            field=models.ForeignKey(to='actuaciones.instrumentos', null=True),
+            field=models.ForeignKey(to='actuaciones.instrumentos', null=True, on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='samberos',
