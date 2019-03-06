@@ -7,7 +7,11 @@ from django.contrib.staticfiles import views as static_views
 from django.contrib.auth import views as auth_views
 from actuaciones import views as actuaciones_views
 from django.views.static import serve
+from rest_framework import routers
+from actuaciones.serializers import ActuacionesViewSet
 
+router = routers.DefaultRouter()
+router.register(r'actuaciones', ActuacionesViewSet)
 
 urlpatterns = [
         re_path(r'^admin/', admin.site.urls),
@@ -20,6 +24,10 @@ urlpatterns = [
         re_path(r'^contactos/$', actuaciones_views.listado_contactos),
         re_path(r'^contactos/(?P<id>\d+)/$', actuaciones_views.datos_contacto),
         re_path(r'^cambio_datos/$', actuaciones_views.cambio_datos),
+
+        path('api/', include(router.urls)),
+        path('api/auth/', include('rest_framework.urls', namespace='rest_framework')),
+
 #        re_path(r'^login/$', auth_views.LoginView.as_view(), name='sdrlogin'),
 #        re_path(r'^logout/$', auth_views.LogoutView(), name='sdrlogout'),
 #        re_path(r'^password_reset/$', auth_views.PasswordResetView(), name='password_reset'),
