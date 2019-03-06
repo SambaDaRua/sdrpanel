@@ -12,7 +12,12 @@ class actuacionesAdmin(admin.ModelAdmin):
 
 class samberosAdmin(admin.ModelAdmin):
     exclude = ['user_permissions', 'groups', 'last_login', 'date_joined']
-    list_display = ('username', 'first_name', 'last_name', 'email', 'movil', 'instrumento', 'is_superuser', 'backstage', 'is_active', 'last_login')
+    list_display = (
+                        'username', 'first_name', 'last_name',
+                        'email', 'movil', 'instrumento',
+                        'is_superuser', 'backstage', 'notification_email', 'is_active',
+                        'last_login'
+                    )
     list_filter = ('instrumento', 'is_active', 'backstage', ('last_login', DateRangeFilter))
     search_fields = ['username', 'first_name', 'last_name', 'email', 'movil', 'phone', 'instrumento__nombre']
 

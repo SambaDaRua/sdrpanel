@@ -17,14 +17,18 @@ class instrumentos(models.Model):
 
 class samberos(AbstractUser):
     objects = UserManager()
-    backstage = models.BooleanField(default=False, help_text="Si el sambero esta activo, pero no tocando instrumentos ... ")
+    backstage = models.BooleanField(default=False,
+                                    help_text="Si el sambero esta activo, pero no tocando instrumentos ... ")
     dni = models.CharField(max_length=10, blank=True, null=True)
     phone = models.CharField(max_length=9, blank=True, null=True)
-    movil = models.CharField(max_length=9, blank=True, null=True, help_text="Este es el numero para los SMS")
+    movil = models.CharField(max_length=9, blank=True, null=True,
+                             help_text="Este es el numero para los SMS")
     instrumento = models.ForeignKey(instrumentos, null=True, on_delete=models.SET_NULL)
+    notification_email = models.BooleanField(default=True,
+                                             help_text="Recibir correos de notificación de las actuaciones")
 
     def url(self):
-        return '<a href="/samberos/' + self.username + '/" title="' + self.username + '" rel="gb_page_center[400, 210]">' + self.username + '</a>'
+        return '<a href="/samberos/{0}/" title="{0}" rel="gb_page_center[400, 210]">{0}</a>'.format(self.username)
 
     class Meta:
         ordering = ['username']
@@ -39,7 +43,7 @@ class contactos(models.Model):
     mail = models.CharField(max_length=30, blank=True, null=True)
 
     def url(self):
-        return '<a href="/contactos/' + str(self.id) + '/" title="' + self.name + '" rel="gb_page_center[400, 150]">' + self.name + '</a>'
+        return '<a href="/contactos/{0}/" title="{1}" rel="gb_page_center[400, 150]">{1}</a>'.format(self.id, self.name)
 
     def __str__(self):
         return self.name

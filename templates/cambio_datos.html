@@ -56,6 +56,7 @@
 				<tr class="row1"><td align="right">Teléfono:</td><td><input type="text" name="phone" value="{{ usuario.phone }}" /></td></tr>
 				<tr class="row1"><td align="right">Móvil:</td><td><input type="text" name="movil" value="{{ usuario.movil }}" /></td></tr>
 				<tr class="row1"><td align="right">Correo:</td><td><input type="text" name="email" value="{{ usuario.email }}" /></td></tr>
+				<tr class="row1"><td align="right">Notificationes por correo:</td><td><input type="checkbox" name="notification_email" value="{{ usuario.notification_email }}" /></td></tr>
 				<tr class="row1"><td align="right">Instrumento:</td><td>
                                  <select value="instrumento" name="instrumento">
                                   {% for instrumento in lista_instrumentos %}

@@ -7,6 +7,9 @@ from actuaciones.models import actuaciones, samberos, contactos, instrumentos, r
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
+CHECKBOX_MAPPING = {'True':True,
+                    'False':False,}
+
 
 @login_required
 def index(request):
@@ -145,6 +148,12 @@ def cambio_datos(request):
         if ('email' in request.POST and request.POST.get('email') != ""):
             sambero.email=request.POST.get('email')
             sambero.save()
+        if ('notification_email' in request.POST and request.POST.get('notification_email') != ""):
+            sambero.notification_email=CHECKBOX_MAPPING.get(request.POST.get('notification_email'))
+        else:
+            sambero.notification_email=False
+        sambero.save()
+        print(sambero.notification_email)
         if 'instrumento' in request.POST:
             inst_id = 0
             inst_id = request.POST.get('instrumento')
