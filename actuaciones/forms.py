@@ -58,15 +58,15 @@ class samberoForm(forms.ModelForm):
 class RemoveDisableAccountForm(forms.Form):
     disable_account = forms.BooleanField(initial=True, label="Desactivar cuenta", required=False,
                                          help_text='''Desactivas la cuenta, pero seguirás contando como que estuviste en
-                                         Samba da Rua y las actuaciones, tus datos seguiran en el panel, si quieres
+                                         Samba da Rua y las actuaciones, tus datos seguirán en el panel, si quieres
                                          borrar esos datos puedes cambiarlos manualmente antes de desactivar la cuenta,
-                                         de esta manera solo quedará tu nombre de usuario (mejor si dejas el email para
+                                         de esta manera sólo quedará tu nombre de usuario (mejor si dejas el email para
                                          que podamos contactar contigo en el futuro, quién sabe si hacemos una mega
                                          quedada sambera). Otra opción es borrar tu cuenta, pero así todos tus datos
                                          serán borrados.''')
     remove_account = forms.BooleanField(label="Borrar cuenta", required=False,
                                         help_text='''Se borrara tu cuenta y todos los datos. ¡¡Una pena, ya no podremos
-                                        saber nada de ti, ni las actuaciones en las que estubiste, ni nada... Mejor si
-                                        en vez de borrar la cuenta solo la desactivas y si no quieres que Samba da Rua
+                                        saber nada de ti, ni las actuaciones en las que estuviste, ni nada... Mejor si
+                                        en vez de borrar la cuenta sólo la desactivas y si no quieres que Samba da Rua
                                         tenga datos tuyos, pues antes de desactivar la cuenta borra los datos que
                                         quieras.''')
