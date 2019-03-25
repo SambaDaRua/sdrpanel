@@ -1,5 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from actuaciones.notifications import send_notification_emails
 
 
 class instrumentos(models.Model):
@@ -86,3 +90,9 @@ class actuaciones(models.Model):
         ordering = ['-fecha']
         verbose_name_plural = "actuaciones"
         verbose_name = "actuacion"
+
+
+@receiver(post_save, sender=actuaciones)
+def send_notification_email_nuevas_actuaciones(sender, instance, created, **kwargs):
+    if created and settings.SEND_NOTIFICATION_EMAILS:
+        send_notification_emails(instance)

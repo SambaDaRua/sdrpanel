@@ -1,10 +1,10 @@
-from .models import samberos
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.conf import settings
 
 
 def send_notification_emails(actuacion):
+    from actuaciones.models import samberos
     from_email = settings.DEFAULT_FROM_EMAIL
     if settings.EMAIL_RECIPIENT_DELIMITER:
         DEFAULT_FROM_EMAIL_USERNAME, DEFAULT_FROM_EMAIL_DOMAIN = settings.DEFAULT_FROM_EMAIL.split('@')
