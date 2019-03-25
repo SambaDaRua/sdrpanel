@@ -4,11 +4,12 @@ from django.template import loader
 from django.http import HttpResponse
 from datetime import datetime
 from actuaciones.models import actuaciones, samberos, contactos, instrumentos, relaciones
+from actuaciones.forms import samberoForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-CHECKBOX_MAPPING = {'True':True,
-                    'False':False,}
+CHECKBOX_MAPPING = {'True': True,
+                    'False': False, }
 
 
 @login_required
@@ -18,7 +19,11 @@ def index(request):
     else:
         user_id = request.user.id
     if (('instrumento' in request.POST) and ('id_actuacion' in request.POST)):
-        actualiza_instrumento_actuacion(int(request.POST.get('id_actuacion')), user_id, int(request.POST.get('instrumento')))
+        actualiza_instrumento_actuacion(
+            int(request.POST.get('id_actuacion')),
+            user_id,
+            int(request.POST.get('instrumento'))
+        )
     if ('coche' in request.POST):
         actualiza_coche_actuacion(request.POST.get('id_actuacion'), user_id)
     lista_proximas_actuaciones = actuaciones.objects.filter(fecha__gt=datetime.now()).order_by('fecha')
@@ -45,8 +50,8 @@ def listado_contactos(request):
 
 @login_required
 def listado_samberos(request):
-    lista_samberos = samberos.objects.filter(is_active=True,backstage=False)
-    lista_samberos_backstage = samberos.objects.filter(is_active=True,backstage=True)
+    lista_samberos = samberos.objects.filter(is_active=True, backstage=False)
+    lista_samberos_backstage = samberos.objects.filter(is_active=True, backstage=True)
     lista_samberos_antiguos = samberos.objects.filter(is_active=False)
     c = {
         'lista_samberos': lista_samberos,
@@ -81,7 +86,7 @@ def actualiza_instrumento_actuacion(id_actuacion, id_sambero, id_instrumento):
         relac = actu.samberos.get(sambero__id=id_sambero)
         actu.samberos.remove(relac)
     if (id_instrumento > 0):
-        actu.samberos.add(crear_relacion(id_sambero,id_instrumento))
+        actu.samberos.add(crear_relacion(id_sambero, id_instrumento))
         actu.save()
 
 
@@ -109,8 +114,8 @@ def actualiza_coche_actuacion(id_actuacion, id_sambero):
 def samberos_csv(request):
     response = HttpResponse(mimetype='text/csv')
     response['Content-Disposition'] = 'attachment; filename=samberos.csv'
-    lista_samberos = samberos.objects.filter(is_active=True,backstage=False)
-    lista_samberos_backstage = samberos.objects.filter(is_active=True,backstage=True)
+    lista_samberos = samberos.objects.filter(is_active=True, backstage=False)
+    lista_samberos_backstage = samberos.objects.filter(is_active=True, backstage=True)
     lista_samberos_antiguos = samberos.objects.filter(is_active=False)
     t = loader.get_template('samberos-csv.html')
     c = {
@@ -125,60 +130,19 @@ def samberos_csv(request):
 
 @login_required
 def cambio_datos(request):
-    error = ""
-    sambero = samberos.objects.get(id=request.user.id)
+    # error = ""
+    sambero = request.user
+    if sambero:
+        form = samberoForm(instance=sambero)
+
     if request.POST:
-        if ('username' in request.POST and request.POST.get('username') != sambero.username):
-            error='El nombre de usuario no se puede cambiar'
-        if ('first_name' in request.POST and request.POST.get('first_name') != ""):
-            sambero.first_name=request.POST.get('first_name')
-            sambero.save()
-        if ('last_name' in request.POST and request.POST.get('last_name') != ""):
-            sambero.last_name=request.POST.get('last_name')
-            sambero.save()
-        if 'dni' in request.POST:
-            sambero.dni=request.POST.get('dni','')
-            sambero.save()
-        if 'phone' in request.POST:
-            sambero.phone=request.POST.get('phone','')
-            sambero.save()
-        if 'movil' in request.POST:
-            sambero.movil=request.POST.get('movil','')
-            sambero.save()
-        if ('email' in request.POST and request.POST.get('email') != ""):
-            sambero.email=request.POST.get('email')
-            sambero.save()
-        if ('notification_email' in request.POST and request.POST.get('notification_email') != ""):
-            sambero.notification_email=CHECKBOX_MAPPING.get(request.POST.get('notification_email'))
-        else:
-            sambero.notification_email=False
-        sambero.save()
-        print(sambero.notification_email)
-        if 'instrumento' in request.POST:
-            inst_id = 0
-            inst_id = request.POST.get('instrumento')
-            if inst_id:
-                instru = instrumentos.objects.get(id=inst_id)
-                sambero.instrumento = instru
-                sambero.save()
-        if ('old_password' in request.POST and request.POST.get('old_password') != ""):
-            old_pwd = request.POST.get('old_password', None).decode('ascii')
-            if sambero.check_password(old_pwd):
-                if ('new_password' in request.POST and 'new_password2' in request.POST and request.POST.get('new_password', None) == request.POST.get('new_password2', None)):
-                    passwd = request.POST.get('new_password', None).decode('ascii')
-                    if (passwd != ""):
-                        sambero.set_password(passwd)
-                        sambero.save()
-                    else:
-                        error = 'La nueva contraseña no puede estar en blanco'
-                else:
-                    error = 'La nueva contraseña tiene que ser igual en los dos campos'
-            else:
-                error = 'La contraseña es incorrenta'
-    lista_instrumentos = instrumentos.objects.all().order_by('id')
+        form = samberoForm(request.POST, request=request, instance=sambero)
+        if form.has_changed() and form.is_valid():
+            if 'oldpassword' in form.changed_data and 'newpassword1' in form.changed_data:
+                form.instance.set_password(form.cleaned_data['newpassword1'])
+            form.save()
     c = {
-        'usuario': samberos.objects.get(id=request.user.id),
-        'lista_instrumentos': lista_instrumentos,
-        'error': error,
+        'usuario': request.user,
+        'sambero_form': form,
     }
     return render(request, 'cambio_datos.html', c)

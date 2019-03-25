@@ -18,14 +18,17 @@ class instrumentos(models.Model):
 class samberos(AbstractUser):
     objects = UserManager()
     backstage = models.BooleanField(default=False,
-                                    help_text="Si el sambero esta activo, pero no tocando instrumentos ... ")
+                                    help_text='''Estoy en activo, pero no tocando instrumentos.
+                                    <br/>No recibirás correos de notificación de actuaciones''')
     dni = models.CharField(max_length=10, blank=True, null=True)
-    phone = models.CharField(max_length=9, blank=True, null=True)
-    movil = models.CharField(max_length=9, blank=True, null=True,
-                             help_text="Este es el numero para los SMS")
-    instrumento = models.ForeignKey(instrumentos, null=True, on_delete=models.SET_NULL)
-    notification_email = models.BooleanField(default=True,
-                                             help_text="Recibir correos de notificación de las actuaciones")
+    phone = models.CharField(max_length=9, blank=True, null=True, verbose_name="Télefono")
+    movil = models.CharField(max_length=9, blank=True, null=True, verbose_name="Móvil")
+    instrumento = models.ForeignKey(instrumentos, null=True, on_delete=models.SET_NULL,
+                                    help_text="Instrumento principal")
+    notification_email = models.BooleanField(default=True, verbose_name="Emails de notificación",
+                                             help_text='''Recibir correos de notificación de las actuaciones
+                                             <br/>Se enviarán correos de actuaciones nuevas o
+                                             <br/>cuando cambie la fecha de las actuaciones.''')
 
     def url(self):
         return '<a href="/samberos/{0}/" title="{0}" rel="gb_page_center[400, 210]">{0}</a>'.format(self.username)

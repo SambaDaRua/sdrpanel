@@ -47,34 +47,10 @@
 			{% if error %}<div id="error">Error: {{ error }}</div>{% endif %}
 
 			<form action="/cambio_datos/" method="POST">{% csrf_token %}
-			<table class="listado">
-			<tbody>
-				<tr class="row1"><td align="right">Usuario:</td><td><input disabled type="text" name="username" value="{{ usuario.username }}" /></td></tr>
-				<tr class="row1"><td align="right">Nombre:</td><td><input type="text" name="first_name" value="{{ usuario.first_name }}" /></td></tr>
-				<tr class="row1"><td align="right">Apellidos:</td><td><input type="text" name="last_name" value="{{ usuario.last_name }}" /></td></tr>
-				<tr class="row1"><td align="right">DNI:</td><td><input type="text" name="dni" value="{{ usuario.dni }}" /></td></tr>
-				<tr class="row1"><td align="right">Teléfono:</td><td><input type="text" name="phone" value="{{ usuario.phone }}" /></td></tr>
-				<tr class="row1"><td align="right">Móvil:</td><td><input type="text" name="movil" value="{{ usuario.movil }}" /></td></tr>
-				<tr class="row1"><td align="right">Correo:</td><td><input type="text" name="email" value="{{ usuario.email }}" /></td></tr>
-				<tr class="row1"><td align="right">Notificationes por correo:</td><td><input type="checkbox" name="notification_email" value="{{ usuario.notification_email }}" /></td></tr>
-				<tr class="row1"><td align="right">Instrumento:</td><td>
-                                 <select value="instrumento" name="instrumento">
-                                  {% for instrumento in lista_instrumentos %}
-                                        {% ifequal instrumento.id 9 %}
-                                    <option value="9" class="select_red">No puedo ir :(</option>
-                                        {% else %}
-                                        <option value="{{ instrumento.id }}"{% ifequal instrumento.id usuario.instrumento.id %} class="select_blue" selected{% endifequal %}>{{ instrumento.nombre }}</option>
-                                        {% endifequal %}
-                                  {% endfor %}
-                                 </select>
-				</td></tr>
-				<tr class="row1"><td align="center" colspan="2"><br /><h2>Cambio de contraseña</h2></td></tr>
-				<tr class="row1"><td align="center" colspan="2"><i>(no pongas nada si no quieres cambiarla)</i></td></tr>
-				<tr class="row1"><td align="right">Contraseña anterior:</td><td><input type="password" name="old_password" value="" /></td></tr>
-				<tr class="row1"><td align="right">Contraseña Nueva:</td><td><input type="password" name="new_password" value="" /></td></tr>
-				<tr class="row1"><td align="right">Repetir Contraseña Nueva:</td><td><input type="password" name="new_password2" value="" /></td></tr>
-			</table><br />
-			<center><INPUT TYPE="submit" name="cambio" value="¡¡ Actualiza mis datos !!" /></center>
+<table class="listado">
+	{{ sambero_form }}
+</table>
+<button type="submit">¡¡ Actualiza mis datos !!</button>
 			</form>
 
 			</div>
