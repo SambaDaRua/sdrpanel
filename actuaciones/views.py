@@ -1,12 +1,11 @@
-# coding=utf8
 # Create your views here.
 from django.template import loader
 from django.http import HttpResponse
 from datetime import datetime
 from actuaciones.models import actuaciones, samberos, contactos, instrumentos, relaciones
-from actuaciones.forms import samberoForm
+from actuaciones.forms import samberoForm, RemoveDisableAccountForm
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 CHECKBOX_MAPPING = {'True': True,
                     'False': False, }
@@ -146,3 +145,25 @@ def cambio_datos(request):
         'sambero_form': form,
     }
     return render(request, 'cambio_datos.html', c)
+
+
+@login_required
+def account_remove_delete(request):
+    sambero = request.user
+    if sambero:
+        form = RemoveDisableAccountForm()
+    if request.POST:
+        form = RemoveDisableAccountForm(request.POST)
+        if form.is_valid():
+            if 'remove_account' in form.cleaned_data and form.cleaned_data['remove_account'] is True:
+                sambero.delete()
+                return redirect('logout')
+            elif 'disable_account' in form.cleaned_data and form.cleaned_data['disable_account'] is True:
+                sambero.is_active = False
+                sambero.save()
+                return redirect('logout')
+    c = {
+        'usuario': request.user,
+        'borrar_cuenta_form': form,
+    }
+    return render(request, 'borrar_cuenta.html', c)

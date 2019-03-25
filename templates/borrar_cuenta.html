@@ -42,18 +42,15 @@
 <div id="page">
 	<div id="content">
 		<div class="post">
-			<h1 class="title"><a href="#">Mis Datos</a></h1>
+			<h1 class="title"><a href="#">Desactivar o borrar tu cuenta</a></h1>
 			<div class="entry">
 			{% if error %}<div id="error">Error: {{ error }}</div>{% endif %}
 
-			<form action="/cambio_datos/" method="POST">{% csrf_token %}
+			<form id="borrar_usuario_form" action="/borrar_cuenta/" method="POST">{% csrf_token %}
 <table class="listado">
-	{{ sambero_form }}
+	{{ borrar_cuenta_form }}
 </table>
-<button type="submit">¡¡ Actualiza mis datos !!</button>
-<br/>
-<hr/>
-<p align="center"><a href="/borrar_cuenta/">Desactivar/Borrar Cuenta</a></p>
+<button type="submit" id="borrar_usuario_button">¡¡ Confirmar !!</button>
 			</form>
 
 			</div>
@@ -70,5 +67,19 @@
 <p><a href="http://www.sambadarua.org/">Samba Da Rua</a>: en tu cara.</p>
 </div>
 <!-- end #footer -->
+<script type="text/javascript">
+	var b = document.getElementById('borrar_usuario_form').onsubmit = function onSubmit(form) {
+	    if (document.getElementById('id_remove_account').checked) {
+		    if (confirm('Vas a borrar tu cuenta, esta acción no se puede deshacer, ¿estas seguro?')) {
+           		return true;
+		    } else {
+			document.getElementById('id_remove_account').checked = false;
+			return false;
+		    }
+	    } else {
+		    return true;
+	    }
+    	}
+</script>
 </body>
 </html>
