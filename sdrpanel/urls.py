@@ -39,3 +39,6 @@ if settings.DEBUG:
         re_path(r'^greybox/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.BASE_DIR, 'greybox')}),
         re_path(r'^static/(?P<path>.*)$', static_views.serve)
     ]
+
+admin.site.site_header = "Administración de SDRPANEL"
+admin.site.site_title = "Administración de SDRPANEL"
