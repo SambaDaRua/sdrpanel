@@ -11,7 +11,7 @@ class actuacionesAdmin(admin.ModelAdmin):
 
 
 class samberosAdmin(admin.ModelAdmin):
-    exclude = ['user_permissions', 'groups', 'last_login', 'date_joined']
+    exclude = ['password', 'user_permissions', 'groups', 'last_login', 'date_joined']
     list_display = (
                         'username', 'first_name', 'last_name',
                         'email', 'movil', 'instrumento',

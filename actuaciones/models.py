@@ -1,4 +1,5 @@
 from django.db import models
+from django.template.loader import render_to_string
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.conf import settings
 from django.db.models.signals import post_save
@@ -96,3 +97,15 @@ class actuaciones(models.Model):
 def send_notification_email_nuevas_actuaciones(sender, instance, created, **kwargs):
     if created and settings.SEND_NOTIFICATION_EMAILS:
         send_notification_emails(instance)
+
+
+@receiver(post_save, sender=samberos)
+def send_password_reset_sambero(sender, instance, created, **kwargs):
+    if instance.email and (not instance.password or not instance.has_usable_password()):
+        subject = "{} te damos la bienvenida!".format(settings.EMAIL_SUBJECT_PREFIX)
+        context = {
+            'sambero': instance,
+        }
+        html_message = render_to_string('bienvenida_email.html', context)
+        message = render_to_string('bienvenida_email.txt', context)
+        instance.email_user(subject, message, html_message=html_message)
