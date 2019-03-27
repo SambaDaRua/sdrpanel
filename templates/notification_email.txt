@@ -1,0 +1,28 @@
+{% autoescape off %}Weeyyy!
+
+Se ha añadido la siguiente actuación al Panel Sambero:
+
+=======================================
+{{ actuacion.titulo }}
+=======================================
+
+* Lugar: {{ actuacion.lugar }}
+* Hora: {{ actuacion.fecha }}
+
+{{ actuacion.descripcion }}
+
+
+
+Puedes confirmar que vas a ir (o no), o si vas a poder llevar coche, en el siguiente enlace:
+https://panel.sambadarua.org/#id{{ actuacion.id }}
+
+
+--
+
+Si quieres darte de baja de las notificaciones de correo, puedes desactivarlas en:
+https://panel.sambadarua.org/cambio_datos/
+
+--
+
+Mensaje enviado automagicamente desde el Panel Sambero.
+{% endautoescape %}

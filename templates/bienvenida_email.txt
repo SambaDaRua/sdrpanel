@@ -1,0 +1,32 @@
+{% autoescape off %}Weeyyy!
+
+Este email es para avisarte que ya tienes cuenta en el Panel Sambero (https://panel.sambadarua.org).
+Los datos son los siguientes:
+
+* Nombre de usuaria: {{ sambero.username }}
+
+Para poner una contraseña:
+1. Entra en https://panel.sambadarua.org y dale a "Olvidé mi contraseña"
+   (o lo que es lo mismo, entra en https://panel.sambadarua.org/password_reset/)
+2. Pon tu dirección de correo
+3. Pincha en "Restablecer mi contraseña"
+4. Te llegará un correo con un enlace para poder poner la contraseña que más te guste.
+
+Una vez dentro, podrás ver y apuntarte a las actuaciones/bolos que quieras con el instrumento que te sepas,
+podrás ver un listado de todas las samberas y, por supuesto cambiar tus datos.
+
+De primeras, pincha en "Mis datos" (arriba a la derecha) y confirma tus datos, ningun dato es obligatorio,
+pero puede que los necesitemos más adelante y, bueno, es mejor que te asegures que la dirección de correo
+está bien escrita, ya que sin ella no podrás cambiar la contraseña en caso de que la olvides.
+Desde Samba da Rua no enviamos publicidad para ofrecerte productos o servicios, asi que, si lo que esperas es
+SPAM, esta vez no estas de suerte.
+Si tienes marcada la opción de "Emails de notificación", te llegaran correos cuando se añadan nuevas actuaciones,
+asi estarás al tanto y podrás apuntarte sin tener que estar mirando el Panel todos los dias.
+
+Y luego, en las actuaciones, pues cuando te apuntes, asegurate de que te sabes el repertorio para instru que
+elijas y si vas a llevar coche y puedes llevar algun instru o alguna sambera, pues pincha en "Llevo Coche"
+(si pinchas de nuevo te quitas de la lista).
+ 
+
+Mensaje enviado automagicamente desde el Panel Sambero.
+{% endautoescape %}
