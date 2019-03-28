@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'actuaciones',
+    'sms',
     'rangefilter',
 ]
 
@@ -118,3 +119,6 @@ SEND_NOTIFICATION_EMAILS = True
 LOGIN_URL = '/login/'
 LOGOUT_URL = '/logout/'
 LOGIN_REDIRECT_URL = '/'
+
+SMSUSER=None
+SMSPWD=None
