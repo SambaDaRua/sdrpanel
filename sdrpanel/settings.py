@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'actuaciones.middleware.LastUserActivityMiddleware',
 ]
 
 ROOT_URLCONF = 'sdrpanel.urls'
@@ -120,5 +121,7 @@ LOGIN_URL = '/login/'
 LOGOUT_URL = '/logout/'
 LOGIN_REDIRECT_URL = '/'
 
-SMSUSER=None
-SMSPWD=None
+SMSUSER = None
+SMSPWD = None
+
+LAST_ACTIVITY_INTERVAL_SECS = 600
