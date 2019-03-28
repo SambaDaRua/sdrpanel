@@ -5,7 +5,7 @@ class smssms(admin.ModelAdmin):
 	list_display = ('fecha', 'texto')
 class smslog(admin.ModelAdmin):
 	list_display = ('fecha', 'numero', 'texto', 'enviado')
-	
 
-admin.site.register(sms, smssms)
-admin.site.register(log, smslog)
+
+#admin.site.register(sms, smssms)
+#admin.site.register(log, smslog)
