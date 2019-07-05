@@ -111,7 +111,7 @@ def actualiza_coche_actuacion(id_actuacion, id_sambero):
 
 @login_required
 def samberos_csv(request):
-    response = HttpResponse(mimetype='text/csv')
+    response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename=samberos.csv'
     lista_samberos = samberos.objects.filter(is_active=True, backstage=False)
     lista_samberos_backstage = samberos.objects.filter(is_active=True, backstage=True)
