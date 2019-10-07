@@ -9,6 +9,7 @@ class ActuacionesFeed(ICalFeed):
     product_id = '-//sdrpanel//actuaciones//ES'
     timezone = 'UTC'
     file_name = "actuaciones.ics"
+    title = "Actuaciones SDRPanel"
 
     def items(self):
         return actuaciones.objects.all().order_by('-fecha')

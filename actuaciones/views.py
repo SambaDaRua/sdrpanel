@@ -33,6 +33,7 @@ def index(request):
         'lista_instrumentos': lista_instrumentos,
         'lista_samberos': lista_samberos,
         'usuario': samberos.objects.get(id=request.user.id),
+        'domain': request.get_host(),
     }
     return render(request, 'actuaciones.html', c)
 
