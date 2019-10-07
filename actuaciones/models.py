@@ -83,6 +83,8 @@ class actuaciones(models.Model):
     samberos = models.ManyToManyField(relaciones, blank=True,)
     confirmada = models.BooleanField(default=False)
     contacto = models.ManyToManyField(contactos)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.titulo

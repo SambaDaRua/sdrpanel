@@ -6,6 +6,7 @@ from django.conf import settings
 from django.contrib.staticfiles import views as static_views
 from django.contrib.auth import views as auth_views
 from actuaciones import views as actuaciones_views
+from actuaciones.feeds import ActuacionesFeed
 from django.views.static import serve
 
 
@@ -14,6 +15,7 @@ urlpatterns = [
         path('', include('django.contrib.auth.urls')),
         re_path(r'^$', actuaciones_views.index),
         re_path(r'^actuaciones/$', actuaciones_views.index),
+        re_path(r'^actuaciones/actuaciones.ics$', ActuacionesFeed()),
         re_path(r'^samberos/$', actuaciones_views.listado_samberos),
         re_path(r'^samberos/csv/$', actuaciones_views.samberos_csv),
         re_path(r'^samberos/(?P<username>\w+)/$', actuaciones_views.datos_sambero),
