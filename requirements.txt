@@ -1,4 +1,4 @@
 Django
 django-admin-rangefilter
-dateutil
+#dateutil
 django-ical

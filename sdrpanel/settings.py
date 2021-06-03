@@ -125,3 +125,8 @@ SMSUSER = None
 SMSPWD = None
 
 LAST_ACTIVITY_INTERVAL_SECS = 600
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
