@@ -82,7 +82,7 @@ class actuaciones(models.Model):
     coches = models.ManyToManyField(samberos, blank=True, related_name='actuaciones_coches')
     samberos = models.ManyToManyField(relaciones, blank=True,)
     confirmada = models.BooleanField(default=False)
-    contacto = models.ManyToManyField(contactos)
+    contacto = models.ManyToManyField(contactos,help_text="Este es el contacto de la actuación, por si la sambera encargada no esta disponible y tenemos que contactar con el organizador de la actuacion. No debería ser una sambera. Si tienes dudas, no esta claro, o no hay contactos, pues pon lo que quieras.")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

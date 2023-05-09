@@ -42,7 +42,7 @@
         {% if usuario.is_staff %}
                  <select value="user" name="user" onchange="changeUser(this.value)">
                   {% for sambero in lista_samberos %}
-                    <option value="{{ sambero.id }}"{% ifequal sambero.id usuario.id %} class="select_blue" selected{% endifequal %}>{{ sambero.username }}</option>
+                    <option value="{{ sambero.id }}"{% if sambero.id == usuario.id %} class="select_blue" selected{% endif %}>{{ sambero.username }}</option>
                   {% endfor %}
                  </select>
         {% else %}
@@ -125,9 +125,9 @@
                     {% for instrumento in lista_instrumentos %}
                     <li>{{ instrumento.nombre }}: 
                         {% for sambero in actuacion.samberos.all %}
-                        {% ifequal sambero.sambero.username usuario.username %}<b>{% endifequal %}
-                        {% ifequal sambero.instrumento.nombre instrumento.nombre %}{{ sambero.sambero.url|safe }}, {% endifequal %}
-                        {% ifequal sambero.sambero.username usuario.username %}</b>{% endifequal %}
+                        {% if sambero.sambero.username == usuario.username %}<b>{% endif %}
+                        {% if sambero.instrumento.nombre == instrumento.nombre %}{{ sambero.sambero.url|safe }}, {% endif %}
+                        {% if sambero.sambero.username == usuario.username %}</b>{% endif %}
                         {% endfor %}</li>
                     {% endfor %}
                 </ul>
@@ -138,11 +138,11 @@
 {% csrf_token %}
                  <select value="instrumento" name="instrumento">
                   {% for instrumento in lista_instrumentos %}
-                    {% ifequal instrumento.id 9 %}
+                    {% if instrumento.id == 9 %}
                     <option value="9" class="select_red">No puedo ir :(</option>
                     {% else %}
-                    <option value="{{ instrumento.id }}"{% ifequal instrumento.id usuario.instrumento.id %} class="select_blue" selected{% endifequal %}>{{ instrumento.nombre }}</option>
-                    {% endifequal %}
+                    <option value="{{ instrumento.id }}"{% if instrumento.id == usuario.instrumento.id %} class="select_blue" selected{% endif %}>{{ instrumento.nombre }}</option>
+                    {% endif %}
                   {% endfor %}
                  </select>
                     <INPUT TYPE="hidden" name="id_actuacion" value="{{ actuacion.id }}" />

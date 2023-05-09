@@ -1,7 +1,7 @@
 from actuaciones.models import samberos, contactos, instrumentos, actuaciones
 from django.contrib import admin
 from django.contrib.auth.models import Group
-from rangefilter.filter import DateRangeFilter
+from rangefilter.filters import DateRangeFilter
 
 
 class actuacionesAdmin(admin.ModelAdmin):
