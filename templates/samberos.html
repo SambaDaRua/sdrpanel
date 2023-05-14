@@ -48,11 +48,11 @@
 			{% if lista_samberos %}
 			<table class="listado">
 			<thead id="macro">
-			<tr><td>Usuario</td><td>Nombre</td><td>Teléfono</td><td>Móvil</td><td>Correo</td><td>DNI</td></tr>
+			<tr><td>Usuario</td><td>Nombre</td><td>Teléfono</td><td>Móvil</td><td>Correo</td></tr>
 			</thead>
 			<tbody>
 				{% for sambero in lista_samberos %}
-				<tr class="{% cycle 'row1' 'row2' %}"><td>{{ sambero.username }}</td><td>{{ sambero.first_name }} {{ sambero.last_name }}</td><td>{{ sambero.phone }}</td><td>{{ sambero.movil }}</td><td>{{ sambero.email }}</td><td>{{ sambero.dni }}</td></tr>
+				<tr class="{% cycle 'row1' 'row2' %}"><td>{{ sambero.username }}</td><td>{{ sambero.first_name }} {{ sambero.last_name }}</td><td>{{ sambero.phone }}</td><td>{{ sambero.movil }}</td><td>{{ sambero.email }}</td></tr>
 				{% endfor %}
 			</tbody>
 			</table>
@@ -64,11 +64,11 @@
 			{% if lista_samberos_backstage %}
 			<table class="listado">
 			<thead id="macro">
-			<tr><td>Usuario</td><td>Nombre</td><td>Teléfono</td><td>Móvil</td><td>Correo</td><td>DNI</td></tr>
+			<tr><td>Usuario</td><td>Nombre</td><td>Teléfono</td><td>Móvil</td><td>Correo</td></tr>
 			</thead>
 			<tbody>
 				{% for sambero in lista_samberos_backstage %}
-				<tr class="{% cycle 'row1' 'row2' %}"><td>{{ sambero.username }}</td><td>{{ sambero.first_name }} {{ sambero.last_name }}</td><td>{{ sambero.phone }}</td><td>{{ sambero.movil }}</td><td>{{ sambero.email }}</td><td>{{ sambero.dni }}</td></tr>
+				<tr class="{% cycle 'row1' 'row2' %}"><td>{{ sambero.username }}</td><td>{{ sambero.first_name }} {{ sambero.last_name }}</td><td>{{ sambero.phone }}</td><td>{{ sambero.movil }}</td><td>{{ sambero.email }}</td></tr>
 				{% endfor %}
 			</tbody>
 			</table>
@@ -80,11 +80,11 @@
 			{% if lista_samberos_antiguos %}
 			<table class="listado">
 			<thead id="macro">
-			<tr><td>Usuario</td><td>Nombre</td><td>Teléfono</td><td>Móvil</td><td>Correo</td><td>DNI</td></tr>
+			<tr><td>Usuario</td><td>Nombre</td><td>Teléfono</td><td>Móvil</td><td>Correo</td></tr>
 			</thead>
 			<tbody>
 				{% for sambero in lista_samberos_antiguos %}
-				<tr class="{% cycle 'row1' 'row2' %}"><td>{{ sambero.username }}</td><td>{{ sambero.first_name }} {{ sambero.last_name }}</td><td>{{ sambero.phone }}</td><td>{{ sambero.movil }}</td><td>{{ sambero.email }}</td><td>{{ sambero.dni }}</td></tr>
+				<tr class="{% cycle 'row1' 'row2' %}"><td>{{ sambero.username }}</td><td>{{ sambero.first_name }} {{ sambero.last_name }}</td><td>{{ sambero.phone }}</td><td>{{ sambero.movil }}</td><td>{{ sambero.email }}</td></tr>
 				{% endfor %}
 			</tbody>
 			</table>
