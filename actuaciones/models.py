@@ -26,7 +26,7 @@ class samberos(AbstractUser):
                                     help_text='''Estoy en activo, pero no tocando instrumentos.
                                     <br/>No recibirás correos de notificación de actuaciones''')
     dni = models.CharField(max_length=10, blank=True, null=True)
-    phone = models.CharField(max_length=9, blank=True, null=True, verbose_name="Télefono")
+    phone = models.CharField(max_length=9, blank=True, null=True, verbose_name="Teléfono")
     movil = models.CharField(max_length=9, blank=True, null=True, verbose_name="Móvil")
     instrumento = models.ForeignKey(instrumentos, null=True, on_delete=models.SET_NULL,
                                     help_text="Instrumento principal")
@@ -40,8 +40,8 @@ class samberos(AbstractUser):
 
     class Meta:
         ordering = ['username']
-        verbose_name_plural = "samberos"
-        verbose_name = "samberos"
+        verbose_name_plural = "samberas"
+        verbose_name = "samberas"
 
 
 class contactos(models.Model):
