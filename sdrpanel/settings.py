@@ -55,6 +55,7 @@ MIDDLEWARE = [
     'actuaciones.middleware.LastUserActivityMiddleware',
 ]
 
+
 ROOT_URLCONF = 'sdrpanel.urls'
 
 TEMPLATES = [
@@ -123,6 +124,8 @@ LOGIN_REDIRECT_URL = '/'
 
 SMSUSER = None
 SMSPWD = None
+
+X_FRAME_OPTIONS = "SAMEORIGIN"
 
 LAST_ACTIVITY_INTERVAL_SECS = 600
 
