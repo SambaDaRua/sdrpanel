@@ -8,6 +8,7 @@ from django.contrib.auth import views as auth_views
 from actuaciones import views as actuaciones_views
 from actuaciones.feeds import ActuacionesFeed
 from django.views.static import serve
+from sdrpanel.views import CustomLogoutView
 
 
 urlpatterns = [
@@ -23,7 +24,8 @@ urlpatterns = [
         re_path(r'^contactos/(?P<id>\d+)/$', actuaciones_views.datos_contacto),
         re_path(r'^cambio_datos/$', actuaciones_views.cambio_datos),
         re_path(r'^login/$', auth_views.LoginView.as_view(), name='sdrlogin'),
-        re_path(r'^logout/$', auth_views.LogoutView.as_view(), name='sdrlogout'),
+        re_path(r'^sdrout/$', CustomLogoutView.as_view(), name='sdrlogout'),
+        re_path(r'^logout/$', CustomLogoutView.as_view(), name='sdrlogout'),
         re_path(r'^password_reset/$', auth_views.PasswordResetView.as_view(), name='password_reset'),
         re_path(r'^password_reset/done/$', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
         re_path(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
